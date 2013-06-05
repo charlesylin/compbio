@@ -30,18 +30,19 @@ fastaFileLines = fastaFile.readlines()
 
 
 #use the type function to figure out the object type of fastaFileLines
-print   #complete this line
+print type(fastFileLines)  #complete this line
 
 #What type of object is fastaFileLines?
-print "fastaFileLines is a %s type of object" % "OBJECT TYPE"  #complete this line by changing OBJECT TYPE into the actual object type of fastaFileLines
+print "fastaFileLines is a %s type of object" % "list"  #complete this line by changing OBJECT TYPE into the actual object type of fastaFileLines
 
 #The len function allows you to find out the length of an object
 #e.g. len(object)
 
 #use the len function to figure out how long fastaFileLines is
+print len(fastaFileLines)
 
 #How long is fastaFileLines?
-print "fastaFileLines has a length of %s" % LENGTH #complete this line by replacing LENGTH with a string with the correct answer
+print "fastaFileLines has a length of %s" % "2" #complete this line by replacing LENGTH with a string with the correct answer
 
 
 #Now that we know fastaFileLines is a list type object, Lets examine its elements
@@ -53,24 +54,26 @@ print fastaFileLines[0]
 
 
 #What type of object is fastaFileLines[0]?
-print "fastaFileLines[0] is a %s type of object" % #complete this line
+print type(fastaFileLInes[0])
+print "fastaFileLines[0] is a %s type of object" % "string" #complete this line
 
 #Print the second element
 print fastaFileLines[1]
 
 #That was probably pretty big.  Now print only the first 100 characters in fastaFileLines[1]
 #Check the lecture notes on slicing an iterable object if you are confused here
-print #complete this line
+print fastaFileLines[1][0:100] #complete this line
+
 
 #Now print the last 100 characters of fastaFileLines[1]
-print # complete this line
+print fastaFileLInes[1][-100:] # complete this line
 
 
 #So what is fastaFileLines
-print "fastaFileLines is a %s that contains %s elements that are %s type objects" % (x,y,z) # replace x,y,z with strings containing the correct answers 
+print "fastaFileLines is a %s that contains %s elements that are %s type objects" % ("list","2","string") # replace x,y,z with strings containing the correct answers 
 
 #Now lets assign the DNA sequence to a variable dna
-dna = #complete this line
+dna = fastaFileLines[1]#complete this line
 
 
 #If all goes well, this should print the DNA sequence of the TUBB gene locus

@@ -5,11 +5,10 @@
 #make a dictionary showing the mononucleotide and dinucleotide composition
 
 #this section of code is cleaned up and taken from exercise1
-fastaFileName = ""   #add the name of the file in between the quotes
+fastaFileName = ""   #add the name of the file in between the quotes from exercise1
 fastaFile = open(fastaFileName,"r")
 fastaFileLines = fastaFile.readlines()
-dna = ''
-dna = dna + fastaFileLines[1]
+dna = fastaFileLines[1]
 
 
 #we want to figure out how many times A,T,C,G occur in this sequence.
@@ -17,39 +16,40 @@ dna = dna + fastaFileLines[1]
 
 
 aCount = dna.count('A')
-tCount = #complete the rest of these lines
-cCount =
-gCount =
+tCount = dna.count('T') #complete the rest of these lines
+cCount = dna.count('C')
+gCount = dna.count('G')
 
 
 #the count doesn't tell us the frequency.  to do that, we have to divide by the
 #length of the dna
 dnaLength = len(dna)
-aFreq =   #complete this line
+aFreq =  aCount/dnaLength #complete this line
 
 print aFreq
 
 #Does aFreq equal 0?  If so, it's because of integer division!
 #we need to change the object type of aCount and dnaLength the from an integer into a float
 aCount = float(aCount)
-dnaLength = float(dna)
+dnaLength = float(len(dna))
 
 #now try to calculate aFreq again. better?
 
-aFreq = #complete this line
+aFreq = aCount/dnaLength  #complete this line
 
 print "aFreq is now a %s type object" % type(aFreq)
 print aFreq
 
 #Write similar lines of code to calculate tFreq,cFreq,gFreq
-
+tFreq = tCount/dnaLength
+cFreq = cCount/dnaLength
+gFreq = gCount/dnaLength
 
 
 print "the frequencies of A,T,C,G in dna are %s,%s,%s,%s" % (aFreq,tFreq,cFreq,gFreq)
 
 #it's more useful to have this information in the form of a dictionary?
 #dictionaries allow you to quickly look up information
-
 
 #For instance, want to know the number of times people in the bradner lab have
 #dunked a basketball? We can create a dictionary keyed by individuals with integer values
@@ -76,18 +76,18 @@ dunks['charles'] = 0
 
 print "charles has dunked %s times on a real hoop... sad :(" % dunks['charles']
 
-#now lets make a dictionary of mononucleotide composition keyed by each nucleotide
+#now lets make a dictionary of mononucleotide composition frequency keyed by each nucleotide
 
 #start with an empty dictionary
 monoComp = {}
 
-monoComp['A'] = #complete the rest of the lines
-
-
+monoComp['A'] = aFreq #complete the rest of the lines
+monoComp['T'] = tFreq
+monoComp['C'] = cFreq
+monoComp['G'] = gFreq
 
 
 print monoComp
-
 
 
 #Now lets do the same thing for dinucleotides
@@ -103,6 +103,7 @@ print monoComp
 #y needs to be defined before hand and must be an iterable object
 #x does not need to be defined before hand
 
+#NOTE: With indented blocks, copy and paste the whole block into the interactive python window
 #for example
 y = 'abcdefg'
 for x in y:   #all loop statements must end in a :
@@ -118,7 +119,6 @@ for x in y:
 #notice how the type of x changes depending on y
 
 
-
 #Lets first use a for loop to help us make a list of all possible 
 #dinucleotides
 
@@ -131,9 +131,26 @@ dinucList = []
 #now use a loop and string operations to make a list of all dinucleotides
 #this is a bit tricky so collaborate with others to reach a solution.
 for nuc in nucList:
-    #complete the rest of the code
+    dinucList = dinucList + [nuc+'A']
+    dinucList = dinucList + [nuc+'T']
+    dinucList = dinucList + [nuc+'C']
+    dinucList = dinucList + [nuc+'G']
+
+
+#You could also solve this by using a pair of loops
+dinucList = []
+for nuc1 in nucList:
+    for nuc2 in nucList:
+        dinucList = dinucList + [nuc1 + nuc2]    #confused about this step try to understand how the + operator works on lists
+
     
-    
+#you can also solve this by using the list attribute append
+#You could also solve this by using a pair of loops
+dinucList = []
+for nuc1 in nucList:
+    for nuc2 in nucList:
+        dinucList.append(nuc1+nuc2)   
+        
 #at the end of the day, dinuclist should look like this
 
     
@@ -165,7 +182,10 @@ for dinuc in dinucList:
      
      
     #complete the rest of the code
-    dinucComp[dinuc] = #complete this too
+    dinucCount = float(dna.count(dinuc))
+    dinucFreq = dinucCount/dnaLength
+
+    dinucComp[dinuc] = dinucFreq #complete this too
      
      
 #at the end of the day you should be able to calculate the CG composition of this sequence
