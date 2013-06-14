@@ -1,0 +1,168 @@
+#week3_exercise2.py
+
+'''
+In this exercise we will write a script that identified gene promoters that are bound by a given factor
+
+This script will be run w/ arguments in canopy instead of completed line by line.
+
+To run it in canopy, first change your working directory to the location of all week3 files.
+
+Then type:
+
+run week3_exercise2.py [TSS_GFF_FILE] [REGION_BED_FILE] [OUTPUT_FILE]
+
+For example:
+
+run week3_exercise2.py MM9_TSS_CHR6_-5000_+5000.gff MES_H3K4ME3_chr6_peaks.bed chr6_H3K4Me3_overlap_genes.txt
+'''
+
+#==========================================================
+#======================DATA FILES==========================
+#==========================================================
+
+#this is where input arguments are identified
+from sys import argv
+
+script, tssFileName, bedFileName, outFileName = argv
+
+print "Using %s as the tss gff file" % tssFileName
+
+print "Using %s as the enriched region bed file" % bedFileName
+
+print "Using %s as the output file" % outFileName
+
+
+#==========================================================
+#======================FUNCTIONS===========================
+#==========================================================
+
+#We will use functions from previous weeks to get going
+
+
+def parseTable(fileName,sep):
+
+    '''
+    reads in a sep delimited file into a table form (list of lists)
+    e.g. a tab \t delimited file
+    '''
+    openFile = open(fileName,'r')
+
+    table = []
+
+    fileLines = openFile.readlines()
+
+    for line in fileLines:
+        line = line.rstrip() # this removes the end of line characters at the end of each line
+        line = line.split(sep)
+        table.append(line)
+
+    return table
+    
+def writeTable(table,outFileName,sep='\t'):
+
+    '''
+    this function does the reverse of parseTable
+    and writes a sep delimited file
+    '''
+
+    import string
+
+    outFile = open(outFileName,'w')
+
+    for line in table:
+
+        newLine = string.join(line,sep)
+        outFile.write(newLine +'\n')
+
+    outFile.close()
+        
+def testOverlap(chrom1,start1,end1,chrom2,start2,end2):
+
+    '''
+    this function tests any two sets of coordinates for overlap
+    and returns true/false
+    '''
+    #make sure start/end values are integers
+    start1 = int(start1)
+    end1 = int(end1)
+    start2 = int(start2)
+    end2 = int(end2)
+    
+    #first check the chromosomes for matching
+    if chrom1 != chrom2:
+        return False
+
+    #then check the coordinates
+    if start1 <= end2 and end1 >= start1:
+        return True
+    else:
+        return False
+    
+
+
+#==========================================================
+#===================MAIN FUNCTIONS=========================
+#==========================================================
+    
+
+def main():
+
+    '''
+    this is the main function that inputs the files and does all the work
+    '''
+
+    #This script needs to do several things
+
+    #1. parse the TSS file
+
+    #2. parse the enriched region bed file
+
+    #3. create an empty list to hold genes that overlap
+
+    #4. check each TSS for overlap w/ the enriched regions
+
+    #5. Store the names of genes whose TSSs overlap the enriched regions in the list created in #3
+
+    #6. Write the list of genes to a file
+    
+
+    #Let's do each of these sequentially
+
+    #1. parse the TSS file
+    tssTable = parseTable(tssFileName,'\t')
+
+
+    #2. parse the enriched region bed file
+    regionTable = parseTable(bedFileName,'\t')
+    regionTable = regionTable[1:]  # this removes the header on the .bed files
+    
+
+    #3. create an empty list to hold genes that overlap
+    overlappingGenesTable = []
+    
+    #4. check each TSS for overlap w/ the enriched regions
+    for line in tssTable:
+
+        tssChrom = line[0]
+        geneName = line[1]
+        tssStart = int(line[3])
+        tssEnd = int(line[4])
+
+        '''
+        complete the rest of the code
+        #4. check each TSS for overlap w/ the enriched regions
+        '''
+        
+
+        
+
+        #if the tss overlaps the enriched region
+        #5. Store the names of genes whose TSSs overlap the enriched regions in the list created in #3        
+        overlappingGenesTable.append([geneName])
+        
+
+    #6. Write the list of genes to a file
+    writeTable(overlappingGenesTable,outFileName,'\t')
+
+
+main()  #this is where the script actually calls the function 
